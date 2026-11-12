@@ -1,0 +1,93 @@
+---
+title: "Another Ten Sentence Term Paper Using Correlation Analysis"
+execute:
+    echo: True
+date: today
+author:
+  - name: Alec Chen
+    affiliation: University of Wisconsin-Madison
+abstract: 
+    Placeholder abstract talking about something with correlation analysis idk lmao
+keywords:
+    - correlation
+    - reproducible
+    - Quarto
+    - Python
+    - DSHB
+bibliography: references.bib
+---
+
+# Introduction
+
+```{python}
+import pandas as pd
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+import seaborn as sns
+
+df = sns.load_dataset('car_crashes')
+df.sample(5)
+```
+
+I love drinking!!!!!! and all my friends love drinking!!!!!!!!!! and we need money for drinks!!!!!!!!!! but we keep spending money on insurance >:((((((((((((((((. Are we paying more money to insurance the more we drink?!!!!!!!!!!!!! 
+
+# Literature Review
+
+This is a sample sentence using references from the earlier five-sentence-chi2-paper [@vayadande2024book].
+
+This is another sample sentence sentence [@toosi2025judge]; ideally, real sources should provide the necessary knowledge framework for conducting this study.
+
+# Method
+
+Given that we have two columns of continuous data (percentage of alcohol-impaired drivers and car insurance premiums by dollar), we will evaluate this relationship using simple correlation analysis. We will also display the analysis using a scatterplot. 
+
+# Results
+
+```{python}
+corr_val = np.array(df[['alcohol', 'ins_premium']].corr())[0][1]
+
+print(corr_val)
+
+narrative = "a very strong negative correlation"
+if corr_val > .8: 
+    narrative = "a very strong positive correlation"
+elif corr_val > .4: 
+    narrative = "a moderate positive correlation"
+elif corr_val > 0:
+    narrative = "a weak positive correlation" 
+elif corr_val > -.4:
+    narrative = "a weak negative correlation" 
+elif corr_val > .8: 
+    narrative = "a moderate negative correlation"
+```
+
+Using the simple Pearson correlation approach, these data produce a correlation coefficient of `{python} f"{corr_val:.4f}"`; given this result, we conclude that there is `{python} narrative` between rate of alcohol-impaired drivers and cost of car insurance premiums. 
+
+```{python}
+#| label: fig-alc-prem-scatterplot 
+#| fig-cap: "A scatterplot of alcohol-impaired drivers and insurance premiums"
+
+fig, ax = plt.subplots(figsize = (6, 3.5))
+sns.scatterplot(data = df, y = 'ins_premium', x = 'alcohol')
+
+plt.xlabel('Percentage of Alcohol-Impaired Drivers')
+plt.ylabel('Car Insurance Premiums ($)')
+```
+
+As show in in @fig-alc-prem-scatterplot we see additional evidence of a strong positive correlation between the rate of alcohol-impaired drivers and cost of car insurance premiums.
+
+# Discussion
+
+We have established that there is a weakly negative correlation between rate of alcohol-impaired drivers and insurance premiums. Although correlation is only one statistic, I am going to tell all of my friends that drinking does not increase our premiums and we should keep buying drinks for drinking and driving!!!!!!!!!!!!!!!!!
+
+# References
+
+::: {#refs}
+:::
+
+## Bonus plots
+```{python}
+sns.lmplot(data=df, y='ins_premium', x='alcohol')
+```
